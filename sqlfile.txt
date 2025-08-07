@@ -1,0 +1,822 @@
+USE [master]
+GO
+/****** Object:  Database [Hotel_Staging]    Script Date: 07-08-2025 12:20:25 ******/
+CREATE DATABASE [Hotel_Staging]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Hotel_Staging', FILENAME = N'C:\Users\ToqSoft\Hotel_Staging.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Hotel_Staging_log', FILENAME = N'C:\Users\ToqSoft\Hotel_Staging_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [Hotel_Staging] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Hotel_Staging].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Hotel_Staging] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [Hotel_Staging] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Hotel_Staging] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Hotel_Staging] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [Hotel_Staging] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Hotel_Staging] SET READ_COMMITTED_SNAPSHOT ON 
+GO
+ALTER DATABASE [Hotel_Staging] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [Hotel_Staging] SET  MULTI_USER 
+GO
+ALTER DATABASE [Hotel_Staging] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Hotel_Staging] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Hotel_Staging] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Hotel_Staging] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [Hotel_Staging] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [Hotel_Staging] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [Hotel_Staging] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [Hotel_Staging] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [Hotel_Staging]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetRoleClaims]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetRoleClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoleId] [nvarchar](450) NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetRoles](
+	[Id] [nvarchar](450) NOT NULL,
+	[Name] [nvarchar](256) NULL,
+	[NormalizedName] [nvarchar](256) NULL,
+	[ConcurrencyStamp] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetRoles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [nvarchar](450) NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserLogins](
+	[LoginProvider] [nvarchar](450) NOT NULL,
+	[ProviderKey] [nvarchar](450) NOT NULL,
+	[ProviderDisplayName] [nvarchar](max) NULL,
+	[UserId] [nvarchar](450) NOT NULL,
+ CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY CLUSTERED 
+(
+	[LoginProvider] ASC,
+	[ProviderKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserRoles](
+	[UserId] [nvarchar](450) NOT NULL,
+	[RoleId] [nvarchar](450) NOT NULL,
+ CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUsers](
+	[Id] [nvarchar](450) NOT NULL,
+	[FirstName] [nvarchar](max) NOT NULL,
+	[LastName] [nvarchar](max) NOT NULL,
+	[UserName] [nvarchar](256) NULL,
+	[NormalizedUserName] [nvarchar](256) NULL,
+	[Email] [nvarchar](256) NULL,
+	[NormalizedEmail] [nvarchar](256) NULL,
+	[EmailConfirmed] [bit] NOT NULL,
+	[PasswordHash] [nvarchar](max) NULL,
+	[SecurityStamp] [nvarchar](max) NULL,
+	[ConcurrencyStamp] [nvarchar](max) NULL,
+	[PhoneNumber] [nvarchar](max) NULL,
+	[PhoneNumberConfirmed] [bit] NOT NULL,
+	[TwoFactorEnabled] [bit] NOT NULL,
+	[LockoutEnd] [datetimeoffset](7) NULL,
+	[LockoutEnabled] [bit] NOT NULL,
+	[AccessFailedCount] [int] NOT NULL,
+ CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[AspNetUserTokens]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserTokens](
+	[UserId] [nvarchar](450) NOT NULL,
+	[LoginProvider] [nvarchar](450) NOT NULL,
+	[Name] [nvarchar](450) NOT NULL,
+	[Value] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[LoginProvider] ASC,
+	[Name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[BookingLogs]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[BookingLogs](
+	[LogId] [uniqueidentifier] NOT NULL,
+	[BookingId] [uniqueidentifier] NOT NULL,
+	[Action] [nvarchar](max) NOT NULL,
+	[Timestamp] [datetime2](7) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_BookingLogs] PRIMARY KEY CLUSTERED 
+(
+	[LogId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Bookings]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Bookings](
+	[BookingId] [uniqueidentifier] NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[HotelId] [uniqueidentifier] NOT NULL,
+	[RoomId] [uniqueidentifier] NOT NULL,
+	[CheckInDate] [datetime2](7) NOT NULL,
+	[CheckOutDate] [datetime2](7) NOT NULL,
+	[Adults] [int] NOT NULL,
+	[Children] [int] NOT NULL,
+	[Status] [nvarchar](max) NOT NULL,
+	[Notes] [nvarchar](max) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_Bookings] PRIMARY KEY CLUSTERED 
+(
+	[BookingId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Facilities]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Facilities](
+	[FacilityId] [uniqueidentifier] NOT NULL,
+	[FacilityName] [nvarchar](max) NOT NULL,
+	[Category] [nvarchar](max) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_Facilities] PRIMARY KEY CLUSTERED 
+(
+	[FacilityId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[HotelDiscounts]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[HotelDiscounts](
+	[DiscountId] [uniqueidentifier] NOT NULL,
+	[HotelId] [uniqueidentifier] NOT NULL,
+	[Title] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[DiscountPercentage] [decimal](18, 2) NOT NULL,
+	[ValidFrom] [datetime2](7) NOT NULL,
+	[ValidTo] [datetime2](7) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_HotelDiscounts] PRIMARY KEY CLUSTERED 
+(
+	[DiscountId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[HotelFacilities]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[HotelFacilities](
+	[HotelFacilityId] [uniqueidentifier] NOT NULL,
+	[HotelId] [uniqueidentifier] NOT NULL,
+	[FacilityId] [uniqueidentifier] NOT NULL,
+	[IsAvailable] [bit] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_HotelFacilities] PRIMARY KEY CLUSTERED 
+(
+	[HotelFacilityId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[HotelImages]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[HotelImages](
+	[ImageId] [uniqueidentifier] NOT NULL,
+	[HotelId] [uniqueidentifier] NOT NULL,
+	[ImageUrl] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[IsPrimary] [bit] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_HotelImages] PRIMARY KEY CLUSTERED 
+(
+	[ImageId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[HotelNearbyLandmarks]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[HotelNearbyLandmarks](
+	[LandmarkId] [uniqueidentifier] NOT NULL,
+	[HotelId] [uniqueidentifier] NOT NULL,
+	[LandmarkName] [nvarchar](max) NOT NULL,
+	[DistanceInKm] [decimal](18, 2) NOT NULL,
+	[LandmarkType] [nvarchar](max) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_HotelNearbyLandmarks] PRIMARY KEY CLUSTERED 
+(
+	[LandmarkId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[HotelPolicies]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[HotelPolicies](
+	[PolicyId] [uniqueidentifier] NOT NULL,
+	[HotelId] [uniqueidentifier] NOT NULL,
+	[PolicyType] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_HotelPolicies] PRIMARY KEY CLUSTERED 
+(
+	[PolicyId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[HotelRatingsSummaries]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[HotelRatingsSummaries](
+	[HotelRatingsSummaryId] [uniqueidentifier] NOT NULL,
+	[AverageRating] [decimal](18, 2) NOT NULL,
+	[TotalReviews] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_HotelRatingsSummaries] PRIMARY KEY CLUSTERED 
+(
+	[HotelRatingsSummaryId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[HotelReviewCategories]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[HotelReviewCategories](
+	[HotelReviewCategoryId] [uniqueidentifier] NOT NULL,
+	[ReviewId] [uniqueidentifier] NOT NULL,
+	[Category] [nvarchar](max) NOT NULL,
+	[Score] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_HotelReviewCategories] PRIMARY KEY CLUSTERED 
+(
+	[HotelReviewCategoryId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[HotelReviews]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[HotelReviews](
+	[ReviewId] [uniqueidentifier] NOT NULL,
+	[HotelId] [uniqueidentifier] NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[ReviewerName] [nvarchar](max) NOT NULL,
+	[ReviewerCountry] [nvarchar](max) NOT NULL,
+	[Rating] [int] NOT NULL,
+	[ReviewTitle] [nvarchar](max) NOT NULL,
+	[ReviewBody] [nvarchar](max) NOT NULL,
+	[SubmittedDate] [datetime2](7) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_HotelReviews] PRIMARY KEY CLUSTERED 
+(
+	[ReviewId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[HotelRooms]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[HotelRooms](
+	[RoomId] [uniqueidentifier] NOT NULL,
+	[HotelId] [uniqueidentifier] NOT NULL,
+	[RoomType] [nvarchar](max) NOT NULL,
+	[RoomName] [nvarchar](max) NOT NULL,
+	[BedType] [nvarchar](max) NOT NULL,
+	[MaxAdults] [int] NOT NULL,
+	[MaxChildren] [int] NOT NULL,
+	[RoomSize] [nvarchar](max) NOT NULL,
+	[BasePrice] [decimal](18, 2) NOT NULL,
+	[RoomStatus] [nvarchar](max) NOT NULL,
+	[RefundPolicy] [nvarchar](max) NOT NULL,
+	[BreakfastIncluded] [bit] NOT NULL,
+	[AvailableRooms] [int] NOT NULL,
+	[RoomImagesJson] [nvarchar](max) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_HotelRooms] PRIMARY KEY CLUSTERED 
+(
+	[RoomId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Hotels]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Hotels](
+	[HotelId] [uniqueidentifier] NOT NULL,
+	[HotelName] [nvarchar](max) NOT NULL,
+	[ShortDescription] [nvarchar](max) NOT NULL,
+	[Description] [nvarchar](max) NOT NULL,
+	[HotelType] [nvarchar](max) NOT NULL,
+	[StarRating] [int] NOT NULL,
+	[HotelChain] [nvarchar](max) NOT NULL,
+	[LogoUrl] [nvarchar](max) NOT NULL,
+	[CoverImageUrl] [nvarchar](max) NOT NULL,
+	[Country] [nvarchar](max) NOT NULL,
+	[StateOrProvince] [nvarchar](max) NOT NULL,
+	[City] [nvarchar](max) NOT NULL,
+	[AddressLine1] [nvarchar](max) NOT NULL,
+	[AddressLine2] [nvarchar](max) NOT NULL,
+	[PostalCode] [nvarchar](max) NOT NULL,
+	[Latitude] [decimal](18, 2) NOT NULL,
+	[Longitude] [decimal](18, 2) NOT NULL,
+	[Email] [nvarchar](max) NOT NULL,
+	[PrimaryPhone] [nvarchar](max) NOT NULL,
+	[WebsiteUrl] [nvarchar](max) NOT NULL,
+	[CheckInTime] [time](7) NOT NULL,
+	[CheckOutTime] [time](7) NOT NULL,
+	[CovidSafetyLevel] [nvarchar](max) NOT NULL,
+	[AcceptedCurrencies] [nvarchar](max) NOT NULL,
+	[LanguagesSpoken] [nvarchar](max) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_Hotels] PRIMARY KEY CLUSTERED 
+(
+	[HotelId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[HotelUserAssignments]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[HotelUserAssignments](
+	[AssignmentId] [uniqueidentifier] NOT NULL,
+	[HotelId] [uniqueidentifier] NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_HotelUserAssignments] PRIMARY KEY CLUSTERED 
+(
+	[AssignmentId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[MasterBed]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[MasterBed](
+	[BedID] [uniqueidentifier] NOT NULL,
+	[BedType] [nvarchar](max) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[BedID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[MasterRoom]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[MasterRoom](
+	[RoomID] [uniqueidentifier] NOT NULL,
+	[RoomType] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_DropDowns] PRIMARY KEY CLUSTERED 
+(
+	[RoomID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[RoomAvailabilities]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RoomAvailabilities](
+	[RoomAvailabilityId] [uniqueidentifier] NOT NULL,
+	[Date] [datetime2](7) NOT NULL,
+	[AvailableCount] [int] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_RoomAvailabilities] PRIMARY KEY CLUSTERED 
+(
+	[RoomAvailabilityId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[RoomFacilities]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RoomFacilities](
+	[RoomFacilityId] [uniqueidentifier] NOT NULL,
+	[RoomId] [uniqueidentifier] NOT NULL,
+	[FacilityId] [uniqueidentifier] NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_RoomFacilities] PRIMARY KEY CLUSTERED 
+(
+	[RoomFacilityId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[RoomSeasonalPrices]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RoomSeasonalPrices](
+	[SeasonalPriceId] [uniqueidentifier] NOT NULL,
+	[RoomId] [uniqueidentifier] NOT NULL,
+	[StartDate] [datetime2](7) NOT NULL,
+	[EndDate] [datetime2](7) NOT NULL,
+	[Price] [decimal](18, 2) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_RoomSeasonalPrices] PRIMARY KEY CLUSTERED 
+(
+	[SeasonalPriceId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[UserId] [uniqueidentifier] NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Role] [nvarchar](max) NOT NULL,
+	[Email] [nvarchar](max) NOT NULL,
+	[PassWord] [nvarchar](max) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Wishlists]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Wishlists](
+	[WishlistId] [uniqueidentifier] NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[HotelId] [uniqueidentifier] NOT NULL,
+	[CreatedOn] [datetime2](7) NOT NULL,
+	[CreatedDate] [datetime2](7) NOT NULL,
+	[CreatedBy] [uniqueidentifier] NOT NULL,
+	[ModifiedDate] [datetime2](7) NULL,
+	[ModifiedBy] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_Wishlists] PRIMARY KEY CLUSTERED 
+(
+	[WishlistId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'20250731065538_IntialMigration', N'8.0.0')
+GO
+INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'd5e3775a-eef4-4140-80fd-ef09511983ea', N'HotelAdmin', N'HOTELADMIN', NULL)
+GO
+INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'd561004e-8c62-4468-815a-eb38e575c443', N'd5e3775a-eef4-4140-80fd-ef09511983ea')
+GO
+INSERT [dbo].[AspNetUsers] ([Id], [FirstName], [LastName], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'd561004e-8c62-4468-815a-eb38e575c443', N'Faizal', N'Ahamed', N'hoteladmin@email.com', N'HOTELADMIN@EMAIL.COM', N'hoteladmin@email.com', N'HOTELADMIN@EMAIL.COM', 0, N'AQAAAAIAAYagAAAAEOaqv5mNLzr2WqS/opXlB8WJOAD6hPDS/veq7v9Gt25uOGPa6SbBR+OY+n2sk5jNYA==', N'DPL7WA7ITSFDU4QW7O3O6APF26TYDJYR', N'a0ed173a-3788-47ee-8073-c62a126b01ce', NULL, 0, 0, NULL, 1, 0)
+GO
+INSERT [dbo].[Bookings] ([BookingId], [UserId], [HotelId], [RoomId], [CheckInDate], [CheckOutDate], [Adults], [Children], [Status], [Notes], [CreatedDate], [CreatedBy], [ModifiedDate], [ModifiedBy]) VALUES (N'6536afc1-2519-413e-b0d9-c46e629224ce', N'3fa85f64-5717-4562-b3fc-2c963f66afa6', N'3fa85f64-5717-4562-b3fc-2c963f66afa6', N'3fa85f64-5717-4562-b3fc-2c963f66afa6', CAST(N'2025-08-05T07:32:03.4750000' AS DateTime2), CAST(N'2025-08-05T07:32:03.4750000' AS DateTime2), 2, 4, N'pending', N'testNotes', CAST(N'2025-08-05T13:02:32.9245181' AS DateTime2), N'00000000-0000-0000-0000-000000000000', NULL, NULL)
+GO
+INSERT [dbo].[HotelRooms] ([RoomId], [HotelId], [RoomType], [RoomName], [BedType], [MaxAdults], [MaxChildren], [RoomSize], [BasePrice], [RoomStatus], [RefundPolicy], [BreakfastIncluded], [AvailableRooms], [RoomImagesJson], [CreatedDate], [CreatedBy], [ModifiedDate], [ModifiedBy]) VALUES (N'e5b2dc74-7fdc-435a-8f6d-31208ab9c98d', N'3fa85f64-5717-4562-b3fc-2c963f66afa6', N'sdfsdf', N'sdfsd', N'dsfsdf', 2, 3, N'sdfsdf', CAST(565.00 AS Decimal(18, 2)), N'sdfsd', N'sdfsdf', 1, 2, N'string', CAST(N'2025-08-06T16:05:26.5216200' AS DateTime2), N'00000000-0000-0000-0000-000000000000', NULL, NULL)
+INSERT [dbo].[HotelRooms] ([RoomId], [HotelId], [RoomType], [RoomName], [BedType], [MaxAdults], [MaxChildren], [RoomSize], [BasePrice], [RoomStatus], [RefundPolicy], [BreakfastIncluded], [AvailableRooms], [RoomImagesJson], [CreatedDate], [CreatedBy], [ModifiedDate], [ModifiedBy]) VALUES (N'8ca2ad2e-087c-4a44-ba33-b21f38393341', N'3fa85f64-5717-4562-b3fc-2c963f66afa6', N'king', N'sdfsd', N'dsfsdf', 2, 3, N'sdfsdf', CAST(565.00 AS Decimal(18, 2)), N'sdfsd', N'sdfsdf', 1, 2, N'string', CAST(N'2025-08-06T16:05:07.0925489' AS DateTime2), N'00000000-0000-0000-0000-000000000000', NULL, NULL)
+INSERT [dbo].[HotelRooms] ([RoomId], [HotelId], [RoomType], [RoomName], [BedType], [MaxAdults], [MaxChildren], [RoomSize], [BasePrice], [RoomStatus], [RefundPolicy], [BreakfastIncluded], [AvailableRooms], [RoomImagesJson], [CreatedDate], [CreatedBy], [ModifiedDate], [ModifiedBy]) VALUES (N'14e9d4c6-3544-4848-ba56-d38383bfa9b0', N'3fa85f64-5717-4562-b3fc-2c963f66afa6', N'KING', N'string', N'TEST', 0, 0, N'string', CAST(0.00 AS Decimal(18, 2)), N'string', N'string', 1, 0, N'string', CAST(N'2025-08-06T16:11:44.0403033' AS DateTime2), N'00000000-0000-0000-0000-000000000000', NULL, NULL)
+GO
+INSERT [dbo].[Hotels] ([HotelId], [HotelName], [ShortDescription], [Description], [HotelType], [StarRating], [HotelChain], [LogoUrl], [CoverImageUrl], [Country], [StateOrProvince], [City], [AddressLine1], [AddressLine2], [PostalCode], [Latitude], [Longitude], [Email], [PrimaryPhone], [WebsiteUrl], [CheckInTime], [CheckOutTime], [CovidSafetyLevel], [AcceptedCurrencies], [LanguagesSpoken], [IsActive], [CreatedDate], [CreatedBy], [ModifiedDate], [ModifiedBy]) VALUES (N'be764cb5-1409-4188-a80b-2872caa72235', N'Sunset Grand Hotel', N'A luxury stay near the beach', N'Sunset Grand Hotel offers top-notch amenities, ocean-view rooms, and exceptional service for travelers seeking both relaxation and adventure.', N'Resort', 5, N'Sunset Hospitality Group', N'https://example.com/images/hotel-logo.png', N'https://example.com/images/hotel-cover.jpg', N'United States', N'California', N'Los Angeles', N'123 Oceanview Blvd', N'Suite 200', N'90001', CAST(34.05 AS Decimal(18, 2)), CAST(-118.24 AS Decimal(18, 2)), N'contact@sunsetgrand.com', N'+1-310-555-1234', N'https://www.sunsetgrand.com', CAST(N'15:00:00' AS Time), CAST(N'11:00:00' AS Time), N'High', N'USD, EUR', N'English, Spanish, French', 0, CAST(N'2025-08-04T10:30:34.7613585' AS DateTime2), N'3fa85f64-5717-4562-b3fc-2c963f66afa6', NULL, NULL)
+INSERT [dbo].[Hotels] ([HotelId], [HotelName], [ShortDescription], [Description], [HotelType], [StarRating], [HotelChain], [LogoUrl], [CoverImageUrl], [Country], [StateOrProvince], [City], [AddressLine1], [AddressLine2], [PostalCode], [Latitude], [Longitude], [Email], [PrimaryPhone], [WebsiteUrl], [CheckInTime], [CheckOutTime], [CovidSafetyLevel], [AcceptedCurrencies], [LanguagesSpoken], [IsActive], [CreatedDate], [CreatedBy], [ModifiedDate], [ModifiedBy]) VALUES (N'22f4ea0c-63a6-400f-8d13-9877a9a9395d', N'MetroSquare Executive Hotel', N'A premium stay for business travelers in the city center.', N'MetroSquare Executive Hotel offers cutting-edge conference facilities, smart rooms, and fast Wi-Fi in the heart of downtown Chicago. Ideal for corporate stays and meetings.', N'Business', 4, N'MetroSquare Group', N'https://example.com/assets/logos/metrosquare.png', N'https://example.com/assets/covers/metrosquare.jpg', N'United States', N'Illinois', N'Chicago', N'789 Business Park Drive', N'Floor 5', N'60601', CAST(41.88 AS Decimal(18, 2)), CAST(-87.63 AS Decimal(18, 2)), N'reservations@metrosquare.com', N'+1-312-555-7890', N'https://www.metrosquarehotel.com', CAST(N'13:00:11' AS Time), CAST(N'12:00:11' AS Time), N'High', N'USD', N'English, Mandarin', 1, CAST(N'2025-08-04T11:28:29.6856805' AS DateTime2), N'f96d2c50-0de3-4c84-a72b-9874fa327ef1', NULL, NULL)
+INSERT [dbo].[Hotels] ([HotelId], [HotelName], [ShortDescription], [Description], [HotelType], [StarRating], [HotelChain], [LogoUrl], [CoverImageUrl], [Country], [StateOrProvince], [City], [AddressLine1], [AddressLine2], [PostalCode], [Latitude], [Longitude], [Email], [PrimaryPhone], [WebsiteUrl], [CheckInTime], [CheckOutTime], [CovidSafetyLevel], [AcceptedCurrencies], [LanguagesSpoken], [IsActive], [CreatedDate], [CreatedBy], [ModifiedDate], [ModifiedBy]) VALUES (N'ada21a30-e884-46fc-8623-9ce571054813', N'testApi', N'string', N'string', N'sdfsafsdfsdf', 0, N'string', N'string', N'string', N'string', N'sdfsdfsdfdf', N'string', N'string', N'string', N'string', CAST(0.00 AS Decimal(18, 2)), CAST(0.00 AS Decimal(18, 2)), N'string', N'string', N'string', CAST(N'15:22:22' AS Time), CAST(N'22:00:00' AS Time), N'string', N'string', N'string', 1, CAST(N'2025-08-04T11:09:32.0818894' AS DateTime2), N'3fa85f64-5717-4562-b3fc-2c963f66afa6', CAST(N'2025-08-06T07:27:14.4888955' AS DateTime2), N'3fa85f64-5717-4562-b3fc-2c963f66afa6')
+GO
+INSERT [dbo].[MasterBed] ([BedID], [BedType]) VALUES (N'9c04e222-5911-434d-7844-08ddd4d365a8', N'dfdfd')
+INSERT [dbo].[MasterBed] ([BedID], [BedType]) VALUES (N'e5d8d885-b72a-481d-7845-08ddd4d365a8', N'sdfsfddfd')
+INSERT [dbo].[MasterBed] ([BedID], [BedType]) VALUES (N'55f26f82-8b77-4b5e-e089-08ddd4d5ddd2', N'test')
+INSERT [dbo].[MasterBed] ([BedID], [BedType]) VALUES (N'7c81f543-e06f-435e-3e5d-08ddd4e65334', N'test bed')
+GO
+INSERT [dbo].[MasterRoom] ([RoomID], [RoomType]) VALUES (N'673ba432-fe5c-473c-00c8-08ddd4d0f6b4', N'king')
+INSERT [dbo].[MasterRoom] ([RoomID], [RoomType]) VALUES (N'a3c1396a-a91d-48b6-00c9-08ddd4d0f6b4', N'queen')
+INSERT [dbo].[MasterRoom] ([RoomID], [RoomType]) VALUES (N'c78f2a4d-a948-4272-abbb-08ddd4e62ede', N'test room')
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetRoleClaims_RoleId]    Script Date: 07-08-2025 12:20:26 ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetRoleClaims_RoleId] ON [dbo].[AspNetRoleClaims]
+(
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [RoleNameIndex]    Script Date: 07-08-2025 12:20:26 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [RoleNameIndex] ON [dbo].[AspNetRoles]
+(
+	[NormalizedName] ASC
+)
+WHERE ([NormalizedName] IS NOT NULL)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetUserClaims_UserId]    Script Date: 07-08-2025 12:20:26 ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetUserClaims_UserId] ON [dbo].[AspNetUserClaims]
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetUserLogins_UserId]    Script Date: 07-08-2025 12:20:26 ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetUserLogins_UserId] ON [dbo].[AspNetUserLogins]
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [IX_AspNetUserRoles_RoleId]    Script Date: 07-08-2025 12:20:26 ******/
+CREATE NONCLUSTERED INDEX [IX_AspNetUserRoles_RoleId] ON [dbo].[AspNetUserRoles]
+(
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [EmailIndex]    Script Date: 07-08-2025 12:20:26 ******/
+CREATE NONCLUSTERED INDEX [EmailIndex] ON [dbo].[AspNetUsers]
+(
+	[NormalizedEmail] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UserNameIndex]    Script Date: 07-08-2025 12:20:26 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [UserNameIndex] ON [dbo].[AspNetUsers]
+(
+	[NormalizedUserName] ASC
+)
+WHERE ([NormalizedUserName] IS NOT NULL)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[AspNetRoleClaims]  WITH CHECK ADD  CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[AspNetRoles] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetRoleClaims] CHECK CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId]
+GO
+ALTER TABLE [dbo].[AspNetUserClaims]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserClaims] CHECK CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserLogins]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserLogins] CHECK CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserRoles]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[AspNetRoles] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId]
+GO
+ALTER TABLE [dbo].[AspNetUserRoles]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId]
+GO
+ALTER TABLE [dbo].[AspNetUserTokens]  WITH CHECK ADD  CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY([UserId])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetUserTokens] CHECK CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId]
+GO
+/****** Object:  StoredProcedure [dbo].[AddHotelImage]    Script Date: 07-08-2025 12:20:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[AddHotelImage]
+    @ImageId UNIQUEIDENTIFIER,
+    @HotelId nvarchar,
+    @ImageUrl NVARCHAR(MAX),
+    @Description NVARCHAR(MAX),
+    @IsPrimary BIT
+AS
+BEGIN
+    INSERT INTO HotelImages (ImageId, HotelId, ImageUrl, Description, IsPrimary)
+    VALUES (@ImageId, @HotelId, @ImageUrl, @Description, @IsPrimary);
+END;
+GO
+USE [master]
+GO
+ALTER DATABASE [Hotel_Staging] SET  READ_WRITE 
+GO
