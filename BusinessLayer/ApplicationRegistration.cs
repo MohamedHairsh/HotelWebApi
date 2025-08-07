@@ -17,18 +17,9 @@ namespace BusinessLayer
 
             services.AddAutoMapper(typeof(ApplicationRegistration));
             services.AddScoped<IHotelRepository, HotelRepository>();
-            services.AddScoped<IHotelImagesRepository, HotelImagesRepository>();
-            services.AddScoped<IHotelRoomsRepository, HotelRoomsRepository>();
-            services.AddScoped<IHotelPoliciesRopository, HotelPoliciesRopository>();
-            services.AddScoped<IHotelFacilitiesRepository, HotelFacilitiesRepository>();
-            services.AddScoped<IRoomFacilitiesRepository, RoomFacilitiesRepository>();
-            services.AddScoped<IRoomSeasonalPricesRepository, RoomSeasonalPricesRepository>();
-            services.AddScoped<IRoomAvailabilityRepository, RoomAvailabilityRepository>();
-            services.AddScoped<IHotelNearbyLandmarks, HotelNearbyLandmarksRepository>();
-            services.AddScoped<IHotelDiscountRepository, HotelDiscountRepository>();
-            services.AddScoped<IFacilitiesRepository, FacilitiesRepository>();
             services.AddScoped<IAuthService, AuthService>();
-
+            services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
 
             return services;
         }

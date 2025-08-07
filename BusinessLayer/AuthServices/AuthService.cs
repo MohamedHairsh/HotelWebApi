@@ -10,6 +10,7 @@ using ApplicationLayer.Models.InputModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Win32;
 using NuGet.Protocol.Plugins;
 
 namespace BusinessLayer.AuthServices
@@ -80,7 +81,9 @@ namespace BusinessLayer.AuthServices
                 LoginResponse loginResponse = new LoginResponse
                 {
                     UserId = ApplicationUser.Id,
-                    Token = token
+                    Token = token,
+                    Email = ApplicationUser.UserName,
+                    
                 };
 
                 return loginResponse;
@@ -140,6 +143,7 @@ namespace BusinessLayer.AuthServices
         {
             public string UserId { get; set; }
             public string Token { get; set; }
+            public string Email { get; set; }
         }
     }
 }

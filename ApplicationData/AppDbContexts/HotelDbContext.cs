@@ -19,17 +19,27 @@ namespace ApplicationLayer.AppDbContexts
             
         }
 
-        public DbSet<Hotels> Hotels { get; set; }
-        public DbSet<HotelImages> HotelImages { get; set; }
-        public DbSet<HotelRooms> HotelRooms { get; set; }
-        public DbSet<HotelPolicies> HotelPolicies { get; set; }
-        public DbSet<HotelFacilities> HotelFacilities { get; set; }
-        public DbSet<RoomFacilities> RoomFacilities { get; set; }
-        public DbSet<RoomSeasonalPrices> RoomSeasonalPrices { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<BookingLog> BookingLogs { get; set; }
+        public DbSet<MasterRoom> MasterRoom { get; set; }
+        public DbSet<MasterBed> MasterBed { get; set; }
+        public DbSet<Facility> Facilities { get; set; }
+        public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<HotelDiscount> HotelDiscounts { get; set; }
+        public DbSet<HotelFacility> HotelFacilities { get; set; }
+        public DbSet<HotelImage> HotelImages { get; set; }
+        public DbSet<HotelNearbyLandmark> HotelNearbyLandmarks { get; set; }
+        public DbSet<HotelPolicy> HotelPolicies { get; set; }
+        public DbSet<HotelRatingsSummary> HotelRatingsSummaries { get; set; }
+        public DbSet<HotelReview> HotelReviews { get; set; }
+        public DbSet<HotelReviewCategory> HotelReviewCategories { get; set; }
+        public DbSet<HotelRoom> HotelRooms { get; set; }
+        public DbSet<HotelUserAssignment> HotelUserAssignments { get; set; }
         public DbSet<RoomAvailability> RoomAvailabilities { get; set; }
-        public DbSet<HotelNearbyLandmarks> HotelNearbyLandmarks { get; set; }
-        public DbSet<HotelDiscounts> HotelDiscounts { get; set; }
+        public DbSet<RoomFacility> RoomFacilities { get; set; }
+        public DbSet<RoomSeasonalPrice> RoomSeasonalPrices { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
 
-        public DbSet<Facilities> Facilities { get; set; }
     }
 }

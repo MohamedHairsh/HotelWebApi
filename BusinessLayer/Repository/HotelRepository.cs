@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ApplicationLayer.AppDbContexts;
+using ApplicationLayer.Dto;
 using ApplicationLayer.Models;
 using AutoMapper;
 using BusinessLayer.IRepository;
+using Humanizer;
 using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLayer.Repository
@@ -15,28 +17,35 @@ namespace BusinessLayer.Repository
     {
         private readonly HotelDbContext _db;
         private readonly IMapper _mapper;
-        public HotelRepository(HotelDbContext db,IMapper mapper)
-        {
-            _db= db;
-            _mapper= mapper;
-        }
-        public async Task<string> CreateHotel(Hotels hotels)
-        {
-            hotels.HotelId = Guid.NewGuid();
-            hotels.CreatedDate = DateTime.UtcNow;
-            _db.Hotels.Add(hotels);
-            await _db.SaveChangesAsync();
-            return "Hotel Created Successfully";
 
+        public HotelRepository(HotelDbContext db, IMapper mapper)
+        {
+            _db = db;
+            _mapper = mapper;
+        }
+
+        public async Task<string> CreateHotel(HotelDto hotelDto)
+        {
+            var hotel = _mapper.Map<Hotel>(hotelDto); 
+            hotel.HotelId = Guid.NewGuid();
+            hotel.CreatedDate = DateTime.UtcNow;
+            hotel.CreatedBy = hotelDto.HotelAdminId;
+
+            _db.Hotels.Add(hotel);
+            await _db.SaveChangesAsync();
+
+            return "Hotel Created Successfully";
         }
 
         public async Task DeleteHotel(Guid id)
         {
             var hotel = await _db.Hotels.FindAsync(id);
+            
             if (hotel != null)
             {
-                _db.Hotels.Remove(hotel);
+                hotel.IsActive = false;
                 await _db.SaveChangesAsync();
+               
             }
             else
             {
@@ -44,31 +53,41 @@ namespace BusinessLayer.Repository
             }
         }
 
-        public async Task<List<Hotels>> GetAllById(Guid id)
+        public async Task<List<Hotel>> GetAllById(Guid id)
         {
-            var data=await _db.Hotels
-                            .Where(h => h.HotelId == id)
-                            .ToListAsync();
-            return data;
+            var hotels = await _db.Hotels
+                                  .Where(h => h.HotelId == id)
+                                  .ToListAsync();
+
+            return _mapper.Map<List<Hotel>>(hotels); 
         }
 
-        public async Task<List<Hotels>> GetAllHotel()
+        public async Task<List<Hotel>> GetAllHotel()
         {
-            return await _db.Hotels.ToListAsync();
+            var hotels = await _db.Hotels.ToListAsync();
+            var query = from a in hotels
+                        where a.IsActive == true
+                        select a;
+            return _mapper.Map<List<Hotel>>(query); 
         }
 
-        public async Task<Hotels> UpdateHotel(Hotels hotels)
+        public async Task<HotelDto> UpdateHotel(Guid id, HotelDto hotelDto)
         {
-            var existingHotel = await _db.Hotels.FindAsync(hotels.HotelId);
+            var existingHotel = await _db.Hotels.FirstOrDefaultAsync(x => x.HotelId == id);
             if (existingHotel == null)
             {
                 throw new Exception("Hotel not found");
             }
 
-            _db.Entry(existingHotel).CurrentValues.SetValues(hotels);
+            existingHotel.ModifiedDate = DateTime.UtcNow;
+            existingHotel.ModifiedBy = hotelDto.HotelAdminId;
+
+            _mapper.Map(hotelDto, existingHotel);
+
             await _db.SaveChangesAsync();
 
-            return hotels;
+            return _mapper.Map<HotelDto>(existingHotel);
         }
+
     }
 }

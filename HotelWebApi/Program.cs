@@ -28,7 +28,8 @@ builder.Services.AddApplicationServices();
 //db configure here
 builder.Services.AddDbContext<HotelDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-           
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {

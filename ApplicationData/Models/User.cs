@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace ApplicationLayer.Models
 {
-    public class RoomAvailability
+    public class User
     {
         [Key]
-        public Guid RoomAvailabilityId { get; set; }
-        public DateTime Date { get; set; }
-        public int AvailableCount { get; set; }
+        public Guid UserId { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
+        public string Email { get; set; } 
+        public string PassWord { get; set; } 
         public DateTime CreatedDate { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }

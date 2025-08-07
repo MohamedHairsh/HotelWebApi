@@ -1,55 +1,76 @@
-﻿using ApplicationLayer.Models;
+﻿using ApplicationLayer.Dto;
 using BusinessLayer.IRepository;
+using HotelBooking.Api.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelWebApi.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    public class HotelController : Controller
+    public class HotelController : ControllerBase
     {
-        private IHotelRepository _hotelRepository;
+        private readonly IHotelRepository _hotelRepository;
+
         public HotelController(IHotelRepository hotelRepository)
         {
-                _hotelRepository = hotelRepository;
+            _hotelRepository = hotelRepository;
         }
 
-        [HttpPost,Route("CreateHotel")]
-        public async Task<IActionResult> CreateHotel([FromBody] Hotels hotel)
+        [HttpPost("CreateHotel")]
+        public async Task<IActionResult> CreateHotel([FromBody] HotelDto hotelDto)
         {
-            var result = await _hotelRepository.CreateHotel(hotel);
-            return Ok(result);
+            var result = await _hotelRepository.CreateHotel(hotelDto);
+            var response = new ApiMessage
+            {
+
+                Message = result
+            };
+            return Ok(response);
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllHotels()
         {
             var hotels = await _hotelRepository.GetAllHotel();
-            return Ok(hotels);
+            return new JsonResult(hotels);
         }
 
-        [HttpGet,Route("GetHotelById")]
-        public async Task<IActionResult> GetHotelById(Guid id)
+        [HttpGet("GetHotelById")]
+        public async Task<IActionResult> GetHotelById([FromQuery] Guid id)
         {
             var hotels = await _hotelRepository.GetAllById(id);
-            if (hotels == null || !hotels.Any()) return NotFound();
-            return Ok(hotels);
+            if (hotels == null || !hotels.Any()) return NotFound("Hotel not found");
+            return new JsonResult(hotels);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateHotel([FromBody] Hotels hotel)
+        [HttpPut("UpdateHotel/{id}")]
+        public async Task<IActionResult> UpdateHotel(Guid id, [FromBody] HotelDto hotelDto)
         {
-            var updated = await _hotelRepository.UpdateHotel(hotel);
-            return Ok(updated);
+            try
+            {
+                var updated = await _hotelRepository.UpdateHotel(id, hotelDto);
+                return new JsonResult(updated);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteHotel(Guid id)
+
+        [HttpDelete("DeleteHotel")]
+        public async Task<IActionResult> DeleteHotel([FromQuery] Guid id)
         {
-            await _hotelRepository.DeleteHotel(id);
-            return Ok("Hotel deleted successfully");
+            try
+            {
+                await _hotelRepository.DeleteHotel(id);
+                return new JsonResult("Hotel deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
