@@ -19,6 +19,6 @@ namespace ApplicationLayer.Models.InputModels
 
         [Required]
         public string Password { get; set; }
-        public string Role { get; set; }
+        public string Role { get; set; } = "HotelAdmin";
     }
 }
