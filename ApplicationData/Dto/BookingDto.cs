@@ -15,7 +15,7 @@ namespace ApplicationLayer.Dto
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public int Adults { get; set; }
-        public int Children { get; set; } //
+        public int Children { get; set; } 
         public string Status { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
     }
