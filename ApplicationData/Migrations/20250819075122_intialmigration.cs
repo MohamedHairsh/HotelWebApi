@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ApplicationLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialMigration : Migration
+    public partial class intialmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -92,18 +92,6 @@ namespace ApplicationLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bookings", x => x.BookingId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DropDowns",
-                columns: table => new
-                {
-                    RoomID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RoomType = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DropDowns", x => x.RoomID);
                 });
 
             migrationBuilder.CreateTable(
@@ -359,6 +347,30 @@ namespace ApplicationLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_HotelUserAssignments", x => x.AssignmentId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MasterBed",
+                columns: table => new
+                {
+                    BedID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BedType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MasterBed", x => x.BedID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MasterRoom",
+                columns: table => new
+                {
+                    RoomID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoomType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MasterRoom", x => x.RoomID);
                 });
 
             migrationBuilder.CreateTable(
@@ -622,9 +634,6 @@ namespace ApplicationLayer.Migrations
                 name: "Bookings");
 
             migrationBuilder.DropTable(
-                name: "DropDowns");
-
-            migrationBuilder.DropTable(
                 name: "Facilities");
 
             migrationBuilder.DropTable(
@@ -659,6 +668,12 @@ namespace ApplicationLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "HotelUserAssignments");
+
+            migrationBuilder.DropTable(
+                name: "MasterBed");
+
+            migrationBuilder.DropTable(
+                name: "MasterRoom");
 
             migrationBuilder.DropTable(
                 name: "RoomAvailabilities");

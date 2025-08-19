@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApplicationLayer.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    [Migration("20250731065538_IntialMigration")]
-    partial class IntialMigration
+    [Migration("20250819075122_intialmigration")]
+    partial class intialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -181,21 +181,6 @@ namespace ApplicationLayer.Migrations
                     b.HasKey("LogId");
 
                     b.ToTable("BookingLogs");
-                });
-
-            modelBuilder.Entity("ApplicationLayer.Models.DropDown", b =>
-                {
-                    b.Property<Guid>("RoomID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("RoomType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoomID");
-
-                    b.ToTable("DropDowns");
                 });
 
             modelBuilder.Entity("ApplicationLayer.Models.Facility", b =>
@@ -738,6 +723,36 @@ namespace ApplicationLayer.Migrations
                     b.HasKey("AssignmentId");
 
                     b.ToTable("HotelUserAssignments");
+                });
+
+            modelBuilder.Entity("ApplicationLayer.Models.MasterBed", b =>
+                {
+                    b.Property<Guid>("BedID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BedType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BedID");
+
+                    b.ToTable("MasterBed");
+                });
+
+            modelBuilder.Entity("ApplicationLayer.Models.MasterRoom", b =>
+                {
+                    b.Property<Guid>("RoomID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("RoomType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoomID");
+
+                    b.ToTable("MasterRoom");
                 });
 
             modelBuilder.Entity("ApplicationLayer.Models.RoomAvailability", b =>

@@ -180,21 +180,6 @@ namespace ApplicationLayer.Migrations
                     b.ToTable("BookingLogs");
                 });
 
-            modelBuilder.Entity("ApplicationLayer.Models.DropDown", b =>
-                {
-                    b.Property<Guid>("RoomID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("RoomType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoomID");
-
-                    b.ToTable("DropDowns");
-                });
-
             modelBuilder.Entity("ApplicationLayer.Models.Facility", b =>
                 {
                     b.Property<Guid>("FacilityId")
@@ -735,6 +720,36 @@ namespace ApplicationLayer.Migrations
                     b.HasKey("AssignmentId");
 
                     b.ToTable("HotelUserAssignments");
+                });
+
+            modelBuilder.Entity("ApplicationLayer.Models.MasterBed", b =>
+                {
+                    b.Property<Guid>("BedID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BedType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BedID");
+
+                    b.ToTable("MasterBed");
+                });
+
+            modelBuilder.Entity("ApplicationLayer.Models.MasterRoom", b =>
+                {
+                    b.Property<Guid>("RoomID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("RoomType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoomID");
+
+                    b.ToTable("MasterRoom");
                 });
 
             modelBuilder.Entity("ApplicationLayer.Models.RoomAvailability", b =>
