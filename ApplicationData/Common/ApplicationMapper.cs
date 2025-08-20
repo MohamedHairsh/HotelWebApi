@@ -35,6 +35,7 @@ namespace ApplicationLayer.Common
             CreateMap<WishlistDto, Wishlist>().ReverseMap();
             CreateMap<MasterRoomDto, MasterRoom>().ReverseMap();
             CreateMap<MasterBedDto, MasterBed>().ReverseMap();
+            CreateMap<AmenitiesDto, Amenities>().ReverseMap();
         }
     }
 }
