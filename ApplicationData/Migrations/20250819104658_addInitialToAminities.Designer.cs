@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApplicationLayer.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    [Migration("20250731065538_IntialMigration")]
-    partial class IntialMigration
+    [Migration("20250819104658_addInitialToAminities")]
+    partial class addInitialToAminities
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,6 +96,49 @@ namespace ApplicationLayer.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("ApplicationLayer.Models.Amenities", b =>
+                {
+                    b.Property<Guid>("AmenitiesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AmenitiesName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AmenityImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ClosingTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("OpeningTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AmenitiesId");
+
+                    b.ToTable("Amenities");
                 });
 
             modelBuilder.Entity("ApplicationLayer.Models.Booking", b =>
@@ -181,21 +224,6 @@ namespace ApplicationLayer.Migrations
                     b.HasKey("LogId");
 
                     b.ToTable("BookingLogs");
-                });
-
-            modelBuilder.Entity("ApplicationLayer.Models.DropDown", b =>
-                {
-                    b.Property<Guid>("RoomID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("RoomType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoomID");
-
-                    b.ToTable("DropDowns");
                 });
 
             modelBuilder.Entity("ApplicationLayer.Models.Facility", b =>
@@ -738,6 +766,36 @@ namespace ApplicationLayer.Migrations
                     b.HasKey("AssignmentId");
 
                     b.ToTable("HotelUserAssignments");
+                });
+
+            modelBuilder.Entity("ApplicationLayer.Models.MasterBed", b =>
+                {
+                    b.Property<Guid>("BedID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BedType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BedID");
+
+                    b.ToTable("MasterBed");
+                });
+
+            modelBuilder.Entity("ApplicationLayer.Models.MasterRoom", b =>
+                {
+                    b.Property<Guid>("RoomID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("RoomType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoomID");
+
+                    b.ToTable("MasterRoom");
                 });
 
             modelBuilder.Entity("ApplicationLayer.Models.RoomAvailability", b =>

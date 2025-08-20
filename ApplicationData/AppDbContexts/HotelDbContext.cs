@@ -40,6 +40,8 @@ namespace ApplicationLayer.AppDbContexts
         public DbSet<RoomSeasonalPrice> RoomSeasonalPrices { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<Amenities> Amenities { get; set; }
+
 
     }
 }
