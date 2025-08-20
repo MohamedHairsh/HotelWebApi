@@ -29,6 +29,7 @@ namespace BusinessLayer.Repository
             var amenities = _mapper.Map<Amenities>(amenitiesDto);
             amenities.AmenitiesId = Guid.NewGuid();
             amenities.CreatedDate = DateTime.Now;
+            amenities.CreatedBy = Guid.NewGuid(); 
 
             _db.Amenities.Add(amenities);
             await _db.SaveChangesAsync();
