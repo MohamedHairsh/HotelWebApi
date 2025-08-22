@@ -37,21 +37,32 @@ namespace BusinessLayer.Repository
             return "Hotel Created Successfully";
         }
 
+        //public async Task DeleteHotel(Guid id)
+        //{
+        //    var hotel = await _db.Hotels.FindAsync(id);
+            
+        //    if (hotel != null)
+        //    {
+        //        hotel.IsActive = false;
+        //        await _db.SaveChangesAsync();
+               
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Hotel not found");
+        //    }
+        //}
+
         public async Task DeleteHotel(Guid id)
         {
             var hotel = await _db.Hotels.FindAsync(id);
-            
-            if (hotel != null)
-            {
-                hotel.IsActive = false;
-                await _db.SaveChangesAsync();
-               
-            }
-            else
-            {
+            if (hotel == null)
                 throw new Exception("Hotel not found");
-            }
+
+            _db.Hotels.Remove(hotel);   // 👈 Hard delete
+            await _db.SaveChangesAsync();
         }
+
 
         public async Task<List<Hotel>> GetAllById(Guid id)
         {

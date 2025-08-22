@@ -20,6 +20,8 @@ namespace BusinessLayer
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IAmenitiesRepository, AmenitiesRepository>();
+            services.AddScoped<IStaffRepository, StaffRepository>();
 
             return services;
         }

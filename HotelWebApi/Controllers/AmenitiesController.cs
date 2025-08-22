@@ -17,17 +17,7 @@ namespace HotelWebApi.Controllers
         {
             _amenitiesRepository = amenitiesRepository;
         }
-        //[HttpPost("CreateAmenities")]
-        //public async Task<IActionResult> CreateAmenities([FromBody] AmenitiesDto amenitiesDto)
-        //{
-        //    var result = await _amenitiesRepository.CreateAmenities(amenitiesDto);
-        //    var response = new ApiMessage
-        //    {
-        //        Message = result
-        //    };
-
-        //    return Ok(response);
-        //}
+      
 
 
         [HttpPost("CreateAmenities")]

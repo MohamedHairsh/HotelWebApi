@@ -42,6 +42,8 @@ namespace ApplicationLayer.AppDbContexts
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<Amenities> Amenities { get; set; }
 
+        public DbSet<Staff> Staffs { get; set; }
+
 
     }
 }

@@ -18,7 +18,7 @@ namespace HotelWebApi.Controllers
         }
 
         [HttpPost("CreateHotel")]
-        public async Task<IActionResult> CreateHotel([FromBody] HotelDto hotelDto)
+        public async Task<IActionResult> CreateHotel([FromBody] HotelDto hotelDto) 
         {
             var result = await _hotelRepository.CreateHotel(hotelDto);
             var response = new ApiMessage
@@ -59,17 +59,17 @@ namespace HotelWebApi.Controllers
         }
 
 
-        [HttpDelete("DeleteHotel")]
-        public async Task<IActionResult> DeleteHotel([FromQuery] Guid id)
+        [HttpDelete("DeleteHotel/{id}")]
+        public async Task<IActionResult> DeleteHotel(Guid id)
         {
             try
             {
                 await _hotelRepository.DeleteHotel(id);
-                return new JsonResult("Hotel deleted successfully");
+                return Ok(new { Message = "Hotel deleted successfully (soft delete)" });
             }
             catch (Exception ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(new { Message = ex.Message });
             }
         }
     }

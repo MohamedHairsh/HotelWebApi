@@ -3,6 +3,7 @@ using BusinessLayer.IRepository;
 using HotelBooking.Api.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using ApplicationLayer.Common;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelWebApi.Controllers
 {
@@ -41,12 +42,49 @@ namespace HotelWebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
-
+        [Authorize(Roles = "Admin,Customer")]
         [HttpGet("GetAllBooking")]
         public async Task<IActionResult> GetAllbooking()
         {
             var book = await _bookingRepository.GetAllBooking();
             return new JsonResult(book);
         }
+        [HttpPut("UpdateBooking")]
+        public async Task<IActionResult> UpdateBooking([FromQuery] Guid id, [FromBody] BookingDto bookingDto)
+        {
+            try
+            {
+                var updatedBooking = await _bookingRepository.UpdateBooking(id, bookingDto);
+                return Ok(updatedBooking);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { Message = ex.Message });
+            }
+        }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBookingById(Guid id)
+        {
+            try
+            {
+                var booking = await _bookingRepository.GetAllById(id);
+                return Ok(booking);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", error = ex.Message });
+            }
+            //partial view reusable small portion of ui("_LoginPartial");
+
+            //Layout View  => master template for designing ("_Layou")
+
+        }
+
+
     }
 }

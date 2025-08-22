@@ -14,8 +14,11 @@ namespace ApplicationLayer.Common
         public ApplicationMapper()
         {
             CreateMap<HotelDto, Hotel>()
-               .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.HotelAdminId)).ReverseMap()
-               .ForMember(dest => dest.HotelAdminId, opt => opt.MapFrom(src => src.CreatedBy));
+     .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.HotelAdminId));
+
+            CreateMap<Hotel, HotelDto>()
+                .ForMember(dest => dest.HotelAdminId, opt => opt.MapFrom(src => src.CreatedBy));
+
             CreateMap<BookingDto, Booking>().ReverseMap();
             CreateMap<HotelRoomDto, HotelRoom>().ReverseMap();
             CreateMap<FacilityDto, Facility>().ReverseMap();
@@ -36,6 +39,13 @@ namespace ApplicationLayer.Common
             CreateMap<MasterRoomDto, MasterRoom>().ReverseMap();
             CreateMap<MasterBedDto, MasterBed>().ReverseMap();
             CreateMap<AmenitiesDto, Amenities>().ReverseMap();
+
+            CreateMap<HotelDto, Hotel>()
+    .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.HotelAdminId));
+            CreateMap<StaffDto, Staff>().ReverseMap();
+
+
+
         }
     }
 }
