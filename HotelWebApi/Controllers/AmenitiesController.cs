@@ -106,5 +106,16 @@ namespace HotelWebApi.Controllers
         }
 
 
+        [HttpGet("GetAllById/{id}")]
+        public async Task<IActionResult> GetAllById(Guid id)
+        {
+            var Amenities  = await _amenitiesRepository.GetAllById(id);
+            if (Amenities == null)
+                return NotFound(new { Message = "Staff not found" });
+
+            return Ok(Amenities);
+        }
+
+
     }
 }

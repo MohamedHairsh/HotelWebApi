@@ -3,6 +3,7 @@ using ApplicationLayer.Dto;
 using ApplicationLayer.Models;
 using AutoMapper;
 using BusinessLayer.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -28,14 +29,68 @@ namespace BusinessLayer.Repository
             _env = env;
         }
 
-        public async Task<string> CreateStaff(StaffDto staffDto)
+     public async Task<string> CreateStaff(StaffDto staffDto)
         {
+
             var staff = _mapper.Map<Staff>(staffDto);
             staff.StaffId = Guid.NewGuid();
             staff.CreatedDate = DateTime.Now;
             staff.CreatedBy = Guid.NewGuid();
 
-           
+            if(staffDto.StaffImageFile!=null && staffDto.StaffImageFile.Length > 0)
+            {
+                var fileupload = Path.Combine(_env.WebRootPath, "uploads,staff");
+                if (!Directory.Exists(fileupload))
+                    Directory.CreateDirectory(fileupload);
+                var fileName = $"{Guid.NewGuid()}_{staffDto.StaffImageFile.FileName}";
+                var filepath = Path.Combine(fileupload, fileName);
+                using (var stream = new FileStream(filepath, FileMode.Create))
+                {
+                    await  staffDto.StaffImageFile.CopyToAsync(stream);
+                }
+                staff.StaffImage = $"/uploads/staff/{fileName}";
+            }
+            _db.Staffs.Add(staff);
+
+            await _db.SaveChangesAsync();
+            return "Staff Created Successfully";
+
+
+        }
+
+
+
+
+        public async Task<Staff> GetAllById(Guid id)
+        {
+            var staff = await _db.Staffs.FindAsync(id);
+            return staff;
+        }
+
+        
+        public Task<List<Staff>> GetAllStaff()
+        {
+            var staff = _db.Staffs.ToList();
+            return Task.FromResult(staff);
+        }
+
+         public async Task<StaffDto> UpdateStaff(Guid id, StaffDto staffDto)
+    {
+                    var staff = await _db.Staffs.FindAsync(id);
+                    if (staff == null) return null;
+
+                    staff.FirstName = staffDto.FirstName;
+                    staff.LastName = staffDto.LastName;
+                    staff.PhoneNumber = staffDto.PhoneNumber;
+                    staff.DateOfBirth = staffDto.DateOfBirth;
+                    staff.Address = staffDto.Address;
+                    staff.Email = staffDto.Email;
+                    staff.Gender = staffDto.Gender;
+                    staff.JoiningDate = staffDto.JoiningDate;
+                    staff.ModifiedDate = DateTime.Now;
+                    staff.ModifiedBy = Guid.NewGuid();
+
+      
             if (staffDto.StaffImageFile != null && staffDto.StaffImageFile.Length > 0)
             {
                 var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads/staff");
@@ -53,78 +108,24 @@ namespace BusinessLayer.Repository
                 staff.StaffImage = $"/uploads/staff/{fileName}";
             }
 
-            _db.Staffs.Add(staff);
+            _db.Staffs.Update(staff);
             await _db.SaveChangesAsync();
-            return "Successfully saved staff record.";
+
+            return _mapper.Map<StaffDto>(staff);
         }
 
-
-
-       
-
-        public Task<Staff> GetAllById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Staff>> GetAllStaff()
-        {
-            var staff = _db.Staffs.ToList();
-            return Task.FromResult(staff);
-        }
-
-         public async Task<StaffDto> UpdateStaff(Guid id, StaffDto staffDto)
-    {
-        var staff = await _db.Staffs.FindAsync(id);
-        if (staff == null) return null;
-
-        staff.FirstName = staffDto.FirstName;
-        staff.LastName = staffDto.LastName;
-        staff.PhoneNumber = staffDto.PhoneNumber;
-        staff.DateOfBirth = staffDto.DateOfBirth;
-        staff.Address = staffDto.Address;
-        staff.Email = staffDto.Email;
-        staff.Gender = staffDto.Gender;
-        staff.JoiningDate = staffDto.JoiningDate;
-        staff.ModifiedDate = DateTime.Now;
-        staff.ModifiedBy = Guid.NewGuid();
-
-      
-        if (staffDto.StaffImageFile != null && staffDto.StaffImageFile.Length > 0)
-        {
-            var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads/staff");
-            if (!Directory.Exists(uploadsFolder))
-                Directory.CreateDirectory(uploadsFolder);
-
-            var fileName = $"{Guid.NewGuid()}_{staffDto.StaffImageFile.FileName}";
-            var filePath = Path.Combine(uploadsFolder, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            public async Task DeleteStaff(Guid id)
             {
-                await staffDto.StaffImageFile.CopyToAsync(stream);
-            }
-
-            staff.StaffImage = $"/uploads/staff/{fileName}";
-        }
-
-        _db.Staffs.Update(staff);
-        await _db.SaveChangesAsync();
-
-        return _mapper.Map<StaffDto>(staff);
-    }
-
-        public async Task DeleteStaff(Guid id)
-        {
-            var Staff = await _db.Staffs.FindAsync(id);
-            if (Staff != null)
-            {
-                _db.Staffs.Remove(Staff);
-                await _db.SaveChangesAsync();
-            }
-            else
-            {
-                throw new Exception("Staff Details not found");
+                var Staff = await _db.Staffs.FindAsync(id);
+                if (Staff != null)
+                {
+                    _db.Staffs.Remove(Staff);
+                    await _db.SaveChangesAsync();
+                }
+                else
+                {
+                    throw new Exception("Staff Details not found");
+                }
             }
         }
     }
-}

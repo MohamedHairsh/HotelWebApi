@@ -20,7 +20,10 @@ namespace ApplicationLayer.Dto
         public DateTime JoiningDate { get; set; }
 
         // File upload (image)
-        public IFormFile? StaffImageFile { get; set; }
+        //public IFormFile? StaffImageFile { get; set; }
+
+        public IFormFile ?StaffImageFile { get;set; }
+
 
     }
 }

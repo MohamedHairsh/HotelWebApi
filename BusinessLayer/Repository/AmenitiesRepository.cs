@@ -61,10 +61,14 @@ namespace BusinessLayer.Repository
             }
         }
 
-        public Task<Amenities> GetAllById(Guid id)
+       
+
+        public async Task<Amenities> GetAllById(Guid id)
         {
-            throw new NotImplementedException();
+            var amenities = await _db.Amenities.FindAsync(id);
+            return amenities;
         }
+
 
         public async Task<AmenitiesDto> UpdateAmenities(Guid id, AmenitiesDto amenitiesDto)
         {

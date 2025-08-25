@@ -42,7 +42,7 @@ namespace HotelWebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin,Customer")]
+       
         [HttpGet("GetAllBooking")]
         public async Task<IActionResult> GetAllbooking()
         {

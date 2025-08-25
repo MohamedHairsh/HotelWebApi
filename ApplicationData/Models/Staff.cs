@@ -36,7 +36,11 @@ namespace ApplicationLayer.Models
         [DataType(DataType.Date)]
         public DateTime JoiningDate { get; set; }
 
+        //[Required]
+        //public string StaffImage { get; set; } = string.Empty;
+
         [Required]
+
         public string StaffImage { get; set; } = string.Empty;
 
         public DateTime CreatedDate { get; set; }

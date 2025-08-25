@@ -2,7 +2,9 @@
 using BusinessLayer.IRepository;
 using BusinessLayer.Repository;
 using HotelBooking.Api.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelWebApi.Controllers
@@ -17,12 +19,7 @@ namespace HotelWebApi.Controllers
             _staffRepository = staffRepository;
         }
 
-        [HttpPost("CreateStaff")]
-        public async Task<IActionResult> CreateStaff([FromForm] StaffDto staffDto)
-        {
-            var result = await _staffRepository.CreateStaff(staffDto);
-            return Ok(new { Message = result });
-        }
+       
         [HttpPut("UpdateStaff/{id}")]
         public async Task<IActionResult> UpdateStaff(Guid id, [FromForm] StaffDto staffDto)
         {
@@ -31,8 +28,15 @@ namespace HotelWebApi.Controllers
             return Ok(updatedStaff);
         }
 
-        [HttpGet]
+        [HttpPost("CreateStaff")]
+        public async Task<IActionResult> CreateStaff([FromForm] StaffDto staffDto)
+        {
+            var result = await _staffRepository.CreateStaff(staffDto);
+            return Ok(new { Message = result });
+        }
 
+        [HttpGet]
+       
         public async Task<IActionResult> GetAllStaff()
         {
             var staffList = await _staffRepository.GetAllStaff();
@@ -53,6 +57,16 @@ namespace HotelWebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
+        [HttpGet("GetStaffById/{id}")]
+        public async Task<IActionResult> GetStaffById(Guid id)
+        {
+            var staff = await _staffRepository.GetAllById(id);
+            if (staff == null)
+                return NotFound(new { Message = "Staff not found" });
+
+            return Ok(staff);
+        }
+
 
 
 
