@@ -43,6 +43,8 @@ namespace ApplicationLayer.Common
             CreateMap<HotelDto, Hotel>()
     .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.HotelAdminId));
             CreateMap<StaffDto, Staff>().ReverseMap();
+          
+        
 
 
 

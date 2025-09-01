@@ -11,7 +11,7 @@ namespace ApplicationLayer.Models
     public class Amenities
     {
         [Key]
-       // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    
         public Guid AmenitiesId { get; set; }
 
         public string AmenitiesName { get; set; } = string.Empty;
@@ -24,6 +24,20 @@ namespace ApplicationLayer.Models
         public string Status { get; set; } = string.Empty;
 
         public string ?AmenityImage { get; set; }
+        /// <summary>
+        ///  added extra fields.......
+        /// </summary>
+
+        public decimal? Price { get; set; }   
+        public bool IsReservationRequired { get; set; }
+
+        public int Capacity { get; set; }   
+
+        public string? Location { get; set; } 
+
+        public string? ContactPerson { get; set; }  
+
+        public string? ContactNumber { get; set; }  
 
         public DateTime CreatedDate { get; set; }
         public Guid CreatedBy { get; set; }

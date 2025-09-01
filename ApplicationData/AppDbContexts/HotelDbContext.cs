@@ -1,13 +1,14 @@
-﻿using System;
+﻿using ApplicationLayer.Common;
+using ApplicationLayer.Models;
+using ApplicationLayer.Models.InputModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ApplicationLayer.Common;
-using ApplicationLayer.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 
 namespace ApplicationLayer.AppDbContexts
 {
@@ -44,6 +45,14 @@ namespace ApplicationLayer.AppDbContexts
 
         public DbSet<Staff> Staffs { get; set; }
 
+      
 
-    }
+
+
+
+
+
+
+
+        }
 }
