@@ -9,12 +9,15 @@ namespace ApplicationLayer.Dto
 {
     public class HotelReviewDto
     {
+      
         public Guid HotelId { get; set; }
         public Guid UserId { get; set; }
         public string ReviewerName { get; set; } = string.Empty;
         public string ReviewerCountry { get; set; } = string.Empty;
         public int Rating { get; set; }
         public string ReviewTitle { get; set; } = string.Empty;
-        public string ReviewBody { get; set; } = string.Empty;
+        public string? ReviewBody { get; set; } = string.Empty;
+        public DateTime SubmittedDate { get; set; }
+ 
     }
 }

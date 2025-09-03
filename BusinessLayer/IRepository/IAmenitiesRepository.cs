@@ -15,5 +15,6 @@ namespace BusinessLayer.IRepository
         Task<Amenities> GetAllById(Guid id);
         Task<AmenitiesDto> UpdateAmenities(Guid id, AmenitiesDto amenitiesDto);
         Task DeleteAmenities(Guid id);
+      
     }
 }

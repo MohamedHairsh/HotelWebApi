@@ -17,17 +17,7 @@ namespace HotelWebApi.Controllers
         {
             _amenitiesRepository = amenitiesRepository;
         }
-        //[HttpPost("CreateAmenities")]
-        //public async Task<IActionResult> CreateAmenities([FromBody] AmenitiesDto amenitiesDto)
-        //{
-        //    var result = await _amenitiesRepository.CreateAmenities(amenitiesDto);
-        //    var response = new ApiMessage
-        //    {
-        //        Message = result
-        //    };
-
-        //    return Ok(response);
-        //}
+      
 
 
         [HttpPost("CreateAmenities")]
@@ -113,6 +103,17 @@ namespace HotelWebApi.Controllers
                 Message = "Amenities updated successfully",
 
             });
+        }
+
+
+        [HttpGet("GetAllById/{id}")]
+        public async Task<IActionResult> GetAllById(Guid id)
+        {
+            var Amenities  = await _amenitiesRepository.GetAllById(id);
+            if (Amenities == null)
+                return NotFound(new { Message = "Staff not found" });
+
+            return Ok(Amenities);
         }
 
 

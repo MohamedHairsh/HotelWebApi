@@ -53,14 +53,43 @@ namespace BusinessLayer.Repository
             return _mapper.Map<List<Booking>>(book);
         }
 
-        public Task<Booking> GetAllById(Guid id)
+
+
+        public async Task<Booking> GetAllById(Guid id)
         {
-            throw new NotImplementedException();
+            var booking = await _db.Bookings.FirstOrDefaultAsync(b => b.BookingId == id);
+
+            if (booking == null)
+            {
+                throw new KeyNotFoundException($"Booking with Id {id} not found.");
+            }
+
+            return booking;
         }
 
-        public Task<BookingDto> UpdateBooking(Guid id, BookingDto bookingDto)
+
+
+
+        public async Task<BookingDto> UpdateBooking(Guid id, BookingDto bookingDto)
         {
-            throw new NotImplementedException();
+            var existingBooking = await _db.Bookings.FindAsync(id);
+
+            if (existingBooking == null)
+            {
+                throw new Exception("Booking not found");
+            }
+
+           
+            _mapper.Map(bookingDto, existingBooking);
+
+            existingBooking.ModifiedDate = DateTime.Now;
+            existingBooking.ModifiedDate = DateTime.Now;
+
+            _db.Bookings.Update(existingBooking);
+            await _db.SaveChangesAsync();
+
+            return _mapper.Map<BookingDto>(existingBooking);
         }
+
     }
 }

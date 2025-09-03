@@ -105,8 +105,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddScoped<IAmenitiesRepository, AmenitiesRepository>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
