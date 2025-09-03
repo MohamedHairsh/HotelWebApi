@@ -9,7 +9,6 @@ namespace ApplicationLayer.Dto
 {
     public class BookingDto
     {
-        public Guid BookingId { get; set; }
         public Guid UserId { get; set; }
         
         public Guid HotelId { get; set; } 

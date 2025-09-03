@@ -9,7 +9,6 @@ namespace ApplicationLayer.Dto
 {
    public class StaffDto
     {
-        public Guid StaffId { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
