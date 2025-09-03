@@ -1,9 +1,11 @@
-﻿using ApplicationLayer.Dto;
+﻿using ApplicationLayer.Common;
+using ApplicationLayer.Dto;
+using ApplicationLayer.Models;
 using BusinessLayer.IRepository;
+using BusinessLayer.Repository;
 using HotelBooking.Api.DTOs;
-using Microsoft.AspNetCore.Mvc;
-using ApplicationLayer.Common;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HotelWebApi.Controllers
 {
@@ -16,8 +18,10 @@ namespace HotelWebApi.Controllers
         {
                 _bookingRepository = bookingRepository;
         }
+
+
         [HttpPost("CreateBooking")]
-        public async Task<IActionResult> CreateBooking([FromBody] BookingDto bookingDto)
+        public async Task<IActionResult> CreateBooking([FromForm] BookingDto bookingDto)
         {
             var result = await _bookingRepository.CreateBooking(bookingDto);
             var response = new ApiMessage
@@ -50,7 +54,7 @@ namespace HotelWebApi.Controllers
             return new JsonResult(book);
         }
         [HttpPut("UpdateBooking")]
-        public async Task<IActionResult> UpdateBooking([FromQuery] Guid id, [FromBody] BookingDto bookingDto)
+        public async Task<IActionResult> UpdateBooking([FromQuery] Guid id, [FromForm] BookingDto bookingDto)
         {
             try
             {
@@ -62,7 +66,8 @@ namespace HotelWebApi.Controllers
                 return NotFound(new { Message = ex.Message });
             }
         }
-        
+       
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBookingById(Guid id)
         {
@@ -79,11 +84,27 @@ namespace HotelWebApi.Controllers
             {
                 return StatusCode(500, new { message = "An error occurred.", error = ex.Message });
             }
-            //partial view reusable small portion of ui("_LoginPartial");
-
-            //Layout View  => master template for designing ("_Layou")
+            
 
         }
+
+
+        [HttpGet("byHotel/{hotelId}")]
+        public async Task<ActionResult<IEnumerable<BookingDto>>> GetBookingsByHotel(Guid hotelId)
+        {
+            try
+            {
+                var bookings = await _bookingRepository.GetBookingsByHotel(hotelId);
+                return Ok(bookings);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
+
+
 
 
     }

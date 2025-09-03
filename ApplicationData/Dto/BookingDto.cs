@@ -9,14 +9,19 @@ namespace ApplicationLayer.Dto
 {
     public class BookingDto
     {
+        public Guid BookingId { get; set; }
         public Guid UserId { get; set; }
-        public Guid HotelId { get; set; }
+        
+        public Guid HotelId { get; set; } 
         public Guid RoomId { get; set; }
-        public DateTime CheckInDate { get; set; }
+        public DateTime CheckInDate { get; set; } 
         public DateTime CheckOutDate { get; set; }
         public int Adults { get; set; }
         public int Children { get; set; }
         public string Status { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
+
+
+        public IFormFile? BookingImageFile { get; set; }
     }
 }

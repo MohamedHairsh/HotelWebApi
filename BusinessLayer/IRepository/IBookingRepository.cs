@@ -15,5 +15,7 @@ namespace BusinessLayer.IRepository
         Task<Booking> GetAllById(Guid id);
         Task<BookingDto> UpdateBooking(Guid id, BookingDto bookingDto);
         Task DeleteBooking(Guid id);
+
+        Task<List<BookingDto>> GetBookingsByHotel(Guid hotelId);
     }
 }

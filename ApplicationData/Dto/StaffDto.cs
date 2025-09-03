@@ -21,7 +21,7 @@ namespace ApplicationLayer.Dto
 
         // File upload (image)
         //public IFormFile? StaffImageFile { get; set; }
-
+        public string StaffImage { get; set; } = string.Empty;
         public IFormFile ?StaffImageFile { get;set; }
 
 

@@ -31,11 +31,18 @@ namespace HotelWebApi.Controllers
         }
 
         [HttpGet("GetAllRooms")]
-        public async Task<IActionResult> GetAllHotels()
+        public async Task<IActionResult> GetAllRoom()
         {
             var rooms = await _roomRepository.GetAllRoom();
-            return new JsonResult(rooms);
+
+            if (rooms == null || !rooms.Any())
+                return NotFound("No rooms found");
+
+            return Ok(rooms);
         }
+
+
+
 
         [HttpGet("GetRoomById")]
         public async Task<IActionResult> GetHotelById([FromQuery] Guid id)
