@@ -9,9 +9,9 @@ namespace ApplicationLayer.Dto
 {
     public class HotelReviewDto
     {
-      
+        public Guid ReviewId { get; set; }
         public Guid HotelId { get; set; }
-        public Guid UserId { get; set; }
+        public Guid UserId { get; set; } 
         public string ReviewerName { get; set; } = string.Empty;
         public string ReviewerCountry { get; set; } = string.Empty;
         public int Rating { get; set; }

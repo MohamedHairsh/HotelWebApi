@@ -10,9 +10,8 @@ namespace ApplicationLayer.Dto
     public class AmenitiesDto
     {
 
-      
 
-        public Guid AmenitiesId { get; set; }
+
         public string AmenitiesName { get; set; } = string.Empty;
         public string? Description { get; set; }
         public DateTime OpeningTime { get; set; }

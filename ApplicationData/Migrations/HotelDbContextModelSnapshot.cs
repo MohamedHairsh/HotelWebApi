@@ -685,36 +685,6 @@ namespace ApplicationLayer.Migrations
                     b.ToTable("HotelReviewCategories");
                 });
 
-            modelBuilder.Entity("ApplicationLayer.Models.HotelReviews", b =>
-                {
-                    b.Property<Guid>("ReviewId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("HotelId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Rating")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ReviewText")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("ReviewerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ReviewId");
-
-                    b.HasIndex("HotelId");
-
-                    b.ToTable("HotelReview");
-                });
-
             modelBuilder.Entity("ApplicationLayer.Models.HotelRoom", b =>
                 {
                     b.Property<Guid>("RoomId")
@@ -1264,17 +1234,6 @@ namespace ApplicationLayer.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("ApplicationLayer.Models.HotelReviews", b =>
-                {
-                    b.HasOne("ApplicationLayer.Models.Hotel", "Hotel")
-                        .WithMany()
-                        .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Hotel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

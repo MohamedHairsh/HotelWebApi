@@ -83,6 +83,7 @@ namespace BusinessLayer.AuthServices
                     UserId = ApplicationUser.Id,
                     Token = token,
                     Email = ApplicationUser.UserName,
+                    Name=  ApplicationUser.FirstName
                     
                 };
 
@@ -144,6 +145,7 @@ namespace BusinessLayer.AuthServices
             public string UserId { get; set; }
             public string Token { get; set; }
             public string Email { get; set; }
+            public string Name { get; set; }
         }
     }
 }

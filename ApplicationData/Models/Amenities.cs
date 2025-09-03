@@ -23,10 +23,8 @@ namespace ApplicationLayer.Models
         public DateTime ClosingTime { get; set; }
         public string Status { get; set; } = string.Empty;
 
-        public string ?AmenityImage { get; set; }
-        /// <summary>
-        ///  added extra fields.......
-        /// </summary>
+        public string? AmenityImage { get; set; }
+  
 
         public decimal? Price { get; set; }   
         public bool IsReservationRequired { get; set; }
@@ -43,7 +41,6 @@ namespace ApplicationLayer.Models
         public Guid CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public Guid? ModifiedBy { get; set; }
-
 
 
     }

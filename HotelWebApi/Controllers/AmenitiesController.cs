@@ -111,7 +111,7 @@ namespace HotelWebApi.Controllers
         {
             var Amenities  = await _amenitiesRepository.GetAllById(id);
             if (Amenities == null)
-                return NotFound(new { Message = "Staff not found" });
+                return NotFound(new { Message = "Staff not found"});
 
             return Ok(Amenities);
         }

@@ -22,7 +22,6 @@ namespace BusinessLayer
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IAmenitiesRepository, AmenitiesRepository>();
             services.AddScoped<IStaffRepository, StaffRepository>();
-
             services.AddScoped<IHotelReviewRepository, HotelReviewRepository>();
 
             return services;

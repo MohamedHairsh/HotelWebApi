@@ -79,7 +79,7 @@ namespace BusinessLayer.Repository
             existingReview.Rating = reviewDto.Rating;
             existingReview.ReviewTitle = reviewDto.ReviewTitle;
             existingReview.ReviewBody = reviewDto.ReviewBody;
-           
+
 
             await _context.SaveChangesAsync();
             return _mapper.Map<HotelReviewDto>(existingReview);
