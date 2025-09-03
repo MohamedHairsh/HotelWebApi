@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace ApplicationLayer.Models
 {
-        public class Staff
+
+
+    
+    public class Staff
         {
         [Key]
         public Guid StaffId { get; set; }
@@ -35,48 +38,6 @@ namespace ApplicationLayer.Models
 
         [DataType(DataType.Date)]
         public DateTime JoiningDate { get; set; }
-
-
-
-        [Required, MaxLength(20)]
-    public string EmployeeCode { get; set; } = string.Empty; 
-
-    [MaxLength(100)]
-    public string Department { get; set; } = string.Empty;   
-
-    [MaxLength(100)]
-    public string Designation { get; set; } = string.Empty;   
-
-    [MaxLength(100)]
-    public string Qualification { get; set; } = string.Empty; 
-
-    [MaxLength(20)]
-    public string MaritalStatus { get; set; } = string.Empty; 
-
-    [MaxLength(50)]
-    public string Nationality { get; set; } = string.Empty;
-
-    [MaxLength(5)]
-    public string BloodGroup { get; set; } = string.Empty;
-
-    [MaxLength(100)]
-    public string EmergencyContactName { get; set; } = string.Empty;
-
-    [MaxLength(15)]
-    public string EmergencyContactNumber { get; set; } = string.Empty;
-
-    [MaxLength(50)]
-    public string WorkType { get; set; } = string.Empty;      
-
-    [MaxLength(20)]
-    public string Status { get; set; } = "Active";          
-
-    public decimal? Salary { get; set; }                   
-
-    public Guid? ReportingManagerId { get; set; }            
-
-    [MaxLength(500)]
-    public string Remarks { get; set; } = string.Empty;
 
         [Required]
 

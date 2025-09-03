@@ -11,6 +11,8 @@ namespace BusinessLayer.IRepository
     public interface IHotelReviewRepository
     {
         Task<HotelReviewDto?> GetReviewByIdAsync(Guid reviewId);
+        //Task<HotelReviewDto> AddReviewAsync(HotelReviewDto reviewDto);
+
         Task<HotelReviewDto> AddReviewAsync(HotelReviewDto reviewDto);
         Task<bool> DeleteReviewAsync(Guid reviewId);
         Task<double> GetAverageRatingByHotelIdAsync(Guid hotelId);

@@ -53,27 +53,39 @@ namespace BusinessLayer.Repository
             }
         }
 
-        public async Task<List<HotelRoom>> GetAllById(Guid id)
-        {
-            var room = from a in _db.HotelRooms
-                       join b in _db.MasterRoom on a.RoomType equals b.RoomType
-                       join c in _db.MasterBed on a.BedType equals c.BedType
-                       where a.RoomId == id
-                       select a;      
 
-            return _mapper.Map<List<HotelRoom>>(room);
-        }
+
         public async Task<List<HotelRoom>> GetAllRoom()
         {
-            
-            var query = from a in _db.HotelRooms
-                        join b in _db.MasterRoom on a.RoomType equals b.RoomType
-                        join c in _db.MasterBed on a.BedType equals c.BedType
-                        select a;
-            return _mapper.Map<List<HotelRoom>>(query);
+            return await (from a in _db.HotelRooms
+                          join b in _db.MasterRoom on a.RoomType equals b.RoomType
+                          join c in _db.MasterBed on a.BedType equals c.BedType
+                          
+                          select a).ToListAsync();
         }
 
-       
+
+        public async Task<List<HotelRoom>> GetAllById(Guid id)
+        {
+            return await (from a in _db.HotelRooms
+                          join b in _db.MasterRoom on a.RoomType equals b.RoomType
+                          join c in _db.MasterBed on a.BedType equals c.BedType
+                          where a.RoomId == id
+                          select a).ToListAsync();
+        }
+
+        //public async Task<List<HotelRoom>> GetAllById(Guid id)
+        //{
+        //    var hotelrooms = await _db.HotelRooms
+        //                          .Where(h => h.RoomId == id)
+        //                          .ToListAsync();
+
+        //    return _mapper.Map<List<HotelRoom>>(hotelrooms);
+        //}
+
+
+
+
 
         public async Task<HotelRoomDto> UpdateHotel(Guid id, HotelRoomDto roomDto)
         {

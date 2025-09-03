@@ -47,6 +47,7 @@ namespace BusinessLayer.Repository
 
             _context.HotelReviews.Add(review);
             await _context.SaveChangesAsync();
+             
 
             return _mapper.Map<HotelReviewDto>(review);
         }
@@ -73,7 +74,7 @@ namespace BusinessLayer.Repository
             var existingReview = await _context.HotelReviews.FindAsync(reviewId);
             if (existingReview == null) return null;
 
-            // Map updated values
+           
             existingReview.ReviewerName = reviewDto.ReviewerName;
             existingReview.ReviewerCountry = reviewDto.ReviewerCountry;
             existingReview.Rating = reviewDto.Rating;

@@ -13,6 +13,7 @@ namespace ApplicationLayer.Models
         public Guid BookingId { get; set; }
         public Guid UserId { get; set; }
         public Guid HotelId { get; set; }
+        public Hotel? Hotel { get; set; }
         public Guid RoomId { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
@@ -20,6 +21,10 @@ namespace ApplicationLayer.Models
         public int Children { get; set; }
         public string Status { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
+
+        [Required]
+
+        public string BookingImage { get; set; } = string.Empty;
         public DateTime CreatedDate { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
