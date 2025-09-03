@@ -80,7 +80,7 @@ namespace BusinessLayer.AuthServices
 
                 LoginResponse loginResponse = new LoginResponse
                 {
-                    UserId = ApplicationUser.Id,
+                    AdminId = ApplicationUser.Id,
                     Token = token,
                     Email = ApplicationUser.UserName,
                     Name=  ApplicationUser.FirstName
@@ -142,7 +142,7 @@ namespace BusinessLayer.AuthServices
 
         private class LoginResponse
         {
-            public string UserId { get; set; }
+            public string AdminId { get; set; }
             public string Token { get; set; }
             public string Email { get; set; }
             public string Name { get; set; }
